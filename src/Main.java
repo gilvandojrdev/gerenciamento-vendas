@@ -1,13 +1,62 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-void main() {
-  //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-  // to see how IntelliJ IDEA suggests fixing it.
-  IO.println(String.format("Hello and welcome!"));
+import controller.ClienteController;
+import repository.ClienteRepository;
 
-  for (int i = 1; i <= 5; i++) {
-    //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-    // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-    IO.println("i = " + i);
-  }
+import java.util.Locale;
+import java.util.Scanner;
+import java.math.BigDecimal;
+
+public class Main {
+    static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Locale.setDefault(Locale.US);
+        ClienteController controller = new ClienteController();
+
+
+        System.out.println("Boas-Vindas ao Gerenciamento de Vendas");
+
+        while(true){
+            System.out.print("\n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Vizualizar clientes \n 4 - Sair");
+
+            System.out.println();
+
+            int option = sc.nextInt();
+
+            if(option == 1){
+                System.out.println("Digite a quantidade de clientes que deseja cadastrar");
+                int quantity = sc.nextInt();
+
+                for (int i = 0; i < quantity; i++) {
+
+                    System.out.println("Cadastro do cliente #" + (i + 1));
+
+                    sc.nextLine();
+
+                    System.out.print("Nome: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Idade: ");
+                    Integer age = sc.nextInt();
+
+                    System.out.print("Salário: ");
+                    BigDecimal salario = sc.nextBigDecimal();
+
+                    controller.cadastrarCliente(name, age, salario);
+                }
+
+            }
+
+            if (option == 3){
+                controller.listarClientes();
+            }
+
+
+
+            if(option == 4){
+                System.out.println("Sistema finalizado");
+                break;
+            }
+
+        }
+
+    }
 }
