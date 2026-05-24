@@ -10,7 +10,6 @@ class Main {
         Locale.setDefault(Locale.US);
         ClienteController controller = new ClienteController();
 
-
         System.out.println("Boas-Vindas ao Gerenciamento de Vendas");
 
         while (true) {
