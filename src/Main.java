@@ -1,4 +1,5 @@
 import controller.ClienteController;
+
 import java.util.Locale;
 import java.util.Scanner;
 import java.math.BigDecimal;
@@ -17,43 +18,54 @@ class Main {
 
             System.out.println();
 
-            int option = sc.nextInt();
+            String option = sc.next();
 
-            if (option == 1) {
-                System.out.println("Digite a quantidade de clientes que deseja cadastrar");
-                int quantity = sc.nextInt();
+            String flow = switch (option) {
+                case "1" -> {
+                    System.out.println("Digite a quantidade de clientes que deseja cadastrar");
+                    int quantity = sc.nextInt();
 
-                for (int i = 0; i < quantity; i++) {
+                    for (int i = 0; i < quantity; i++) {
 
-                    System.out.println("Cadastro do cliente #" + (i + 1));
+                        System.out.println("Cadastro do cliente #" + (i + 1));
 
-                    sc.nextLine();
+                        sc.nextLine();
 
-                    System.out.print("Nome: ");
-                    String name = sc.nextLine();
+                        System.out.print("Nome: ");
+                        String name = sc.nextLine();
 
-                    System.out.print("Idade: ");
-                    Integer age = sc.nextInt();
+                        System.out.print("Idade: ");
+                        Integer age = sc.nextInt();
 
-                    System.out.print("Salário: ");
-                    BigDecimal salario = sc.nextBigDecimal();
+                        System.out.print("Salário: ");
+                        BigDecimal salario = sc.nextBigDecimal();
 
-                    controller.cadastrarCliente(name, age, salario);
+                        System.out.println();
+
+                        controller.cadastrarCliente(name, age, salario);
+                    }
+
+                    yield "Está perfeito!";
                 }
 
-            }
+                case "2" -> "Remover pendente";
 
-            if (option == 3) {
-                controller.listarClientes();
-            }
+                case "3" -> {
+                    controller.listarClientes();
+                    yield "Clientes listados";
+                }
 
+                case "4" -> {
+                    System.out.println("Programa finalizado...");
+                    System.exit(0);
+                    yield "Status encerrado";
+                }
 
-            if (option == 4) {
-                System.out.println("Sistema finalizado");
-                break;
-            }
-
+                default -> {
+                    System.err.println("Opção inválida tente novamente");
+                    yield "Erro na opção";
+                }
+            };
         }
-
     }
 }

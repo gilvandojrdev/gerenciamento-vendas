@@ -10,13 +10,14 @@ import java.util.List;
 public class ClienteController {
     private ClienteRepository repository = new ClienteRepository();
 
-    public void cadastrarCliente(String name, Integer age, BigDecimal salary){
+    public void cadastrarCliente(String name, Integer age, BigDecimal salary) {
         Cliente cliente = new Cliente(name, age, salary);
         repository.salvar(cliente);
         System.out.println("Cliente cadastrado com sucesso.");
+        System.out.println();
     }
 
-    public void listarClientes(){
+    public void listarClientes() {
         List<Cliente> clientes = repository.listarTodos();
 
         if (clientes.isEmpty()) {
@@ -25,6 +26,7 @@ public class ClienteController {
         }
 
         System.out.println("Clientes cadastrados");
+        System.out.println();
 
         for (Cliente c : clientes) {
             System.out.println("ID:" + c.getId());

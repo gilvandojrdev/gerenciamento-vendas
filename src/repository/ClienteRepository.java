@@ -1,5 +1,7 @@
 package repository;
+
 import model.Cliente;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,6 @@ public class ClienteRepository {
     public List<Cliente> listarTodos() {
         return clientes;
     }
-
 
 
 }
