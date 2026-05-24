@@ -15,9 +15,12 @@ public class ClienteRepository {
         clientes.add(cliente);
     }
 
+    public boolean remover(int id) {
+        return clientes.removeIf(f -> f.getId() == id);
+    }
+
     public List<Cliente> listarTodos() {
         return clientes;
     }
-
 
 }

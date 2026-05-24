@@ -4,17 +4,27 @@ import model.Cliente;
 import repository.ClienteRepository;
 
 import java.math.BigDecimal;
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class ClienteController {
     private ClienteRepository repository = new ClienteRepository();
+
 
     public void cadastrarCliente(String name, Integer age, BigDecimal salary) {
         Cliente cliente = new Cliente(name, age, salary);
         repository.salvar(cliente);
         System.out.println("Cliente cadastrado com sucesso.");
         System.out.println();
+    }
+
+    public void removerCliente(int id_cliente){
+        boolean removido = repository.remover(id_cliente);
+
+        if (removido) {
+            System.out.println("Cliente do id: " + id_cliente + " removido.");
+        } else {
+            System.out.println("Erro: ID " + id_cliente + " não encontrado.");
+        }
     }
 
     public void listarClientes() {

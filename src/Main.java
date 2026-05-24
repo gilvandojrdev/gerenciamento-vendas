@@ -31,7 +31,7 @@ class Main {
                         try {
                             quantity = sc.nextInt();
                             quantityValid = true;
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException error) {
                             System.err.println("Valor inválido! Digite um número.");
                             sc.nextLine();
                         }
@@ -50,7 +50,7 @@ class Main {
                         int age = 0;
                         try {
                             age = sc.nextInt();
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException error) {
                             System.err.println("Valor inválido! Digite um número.");
                             sc.nextLine();
                             i--;
@@ -61,7 +61,7 @@ class Main {
                         BigDecimal salario = BigDecimal.ZERO;
                         try {
                             salario = sc.nextBigDecimal();
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException error) {
                             System.err.println("Salário inválido! Digite um número.");
                             sc.nextLine();
                             i--;
@@ -75,7 +75,15 @@ class Main {
                 }
 
                 case "2" -> {
-                    System.out.println("Funcionalidade ainda não implementada.");
+                    System.out.print("Digite o ID do cliente: ");
+                    try {
+                        int id = sc.nextInt();
+                        controller.removerCliente(id);
+
+                    } catch (InputMismatchException error) {
+                        System.out.println("Erro: digite apenas números!");
+                        sc.nextLine();
+                    }
                 }
 
                 case "3" -> {
