@@ -1,4 +1,5 @@
 import controller.ClienteController;
+
 import java.util.Locale;
 import java.util.Scanner;
 import java.math.BigDecimal;
@@ -12,14 +13,14 @@ class Main {
 
         System.out.println("Boas-Vindas ao Gerenciamento de Vendas");
 
-        while(true){
+        while (true) {
             System.out.print("\n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Vizualizar clientes \n 4 - Sair");
 
             System.out.println();
 
             int option = sc.nextInt();
 
-            if(option == 1){
+            if (option == 1) {
                 System.out.println("Digite a quantidade de clientes que deseja cadastrar");
                 int quantity = sc.nextInt();
 
@@ -43,13 +44,12 @@ class Main {
 
             }
 
-            if (option == 3){
+            if (option == 3) {
                 controller.listarClientes();
             }
 
 
-
-            if(option == 4){
+            if (option == 4) {
                 System.out.println("Sistema finalizado");
                 break;
             }
