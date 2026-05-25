@@ -15,7 +15,7 @@ class Main {
         boolean running = true;
 
         while (running) {
-            System.out.print("\n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Visualizar clientes \n 4 - Sair");
+            System.out.print("\n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Visualizar clientes \n 4 - Filtrar clientes \n 5 - Sair");
 
             System.out.println();
 
@@ -25,32 +25,29 @@ class Main {
                 case "1" -> {
                     System.out.println("Digite a quantidade de clientes que deseja cadastrar");
                     int quantity = 0;
-                    boolean quantityValid = false;
 
-                    while (!quantityValid) {
+                    while (true) {
                         try {
                             quantity = sc.nextInt();
-                            quantityValid = true;
-                        } catch (InputMismatchException error) {
+                            break;
+                        } catch (InputMismatchException e) {
                             System.err.println("Valor inválido! Digite um número.");
                             sc.nextLine();
                         }
                     }
 
                     for (int i = 0; i < quantity; i++) {
-
                         System.out.println("Cadastro do cliente #" + (i + 1));
-
                         sc.nextLine();
 
                         System.out.print("Nome: ");
                         String name = sc.nextLine();
 
                         System.out.print("Idade: ");
-                        int age = 0;
+                        int age;
                         try {
                             age = sc.nextInt();
-                        } catch (InputMismatchException error) {
+                        } catch (InputMismatchException e) {
                             System.err.println("Valor inválido! Digite um número.");
                             sc.nextLine();
                             i--;
@@ -58,29 +55,27 @@ class Main {
                         }
 
                         System.out.print("Salário: ");
-                        BigDecimal salario = BigDecimal.ZERO;
+                        BigDecimal salary;
                         try {
-                            salario = sc.nextBigDecimal();
-                        } catch (InputMismatchException error) {
+                            salary = sc.nextBigDecimal();
+                        } catch (InputMismatchException e) {
                             System.err.println("Salário inválido! Digite um número.");
                             sc.nextLine();
                             i--;
                             continue;
                         }
 
-                        System.out.println();
-
-                        controller.cadastrarCliente(name, age, salario);
+                        controller.cadastrarCliente(name, age, salary);
                     }
+
                 }
 
                 case "2" -> {
                     System.out.print("Digite o ID do cliente: ");
                     try {
-                        int id = sc.nextInt();
-                        controller.removerCliente(id);
-
-                    } catch (InputMismatchException error) {
+                        int id_cliente = sc.nextInt();
+                        controller.removerCliente(id_cliente);
+                    } catch (InputMismatchException e) {
                         System.out.println("Erro: digite apenas números!");
                         sc.nextLine();
                     }
@@ -91,6 +86,19 @@ class Main {
                 }
 
                 case "4" -> {
+                    System.out.print("Salário: ");
+                    BigDecimal salary = BigDecimal.ZERO;
+                    try {
+                        salary = sc.nextBigDecimal();
+                    } catch (InputMismatchException e) {
+                        System.err.println("Salário inválido! Digite um número.");
+                        sc.nextLine();
+                    }
+                    
+                    controller.filtrarCLientes(salary);
+                }
+
+                case "5" -> {
                     System.out.println("Programa finalizado...");
                     running = false;
                 }
