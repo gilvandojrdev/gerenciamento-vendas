@@ -20,29 +20,15 @@ public class ClienteRepository {
         return clientes.removeIf(f -> f.getId() == id);
     }
 
-    public boolean filtrar(BigDecimal salary) {
-        List<Cliente> filtrados = clientes.stream()
-                .filter(c -> c.getSalary().compareTo(salary) >= 1)
-                .toList();
-
-        filtrados.forEach(c -> {
-            System.out.println("ID: " + c.getId());
-            System.out.println("Nome: " + c.getName());
-            System.out.println("-------------------------");
-        });
-
-        if (filtrados.isEmpty()){
-            System.out.println("Não existe pessoas com o salário de " + salary);
-        }
-
-        return !filtrados.isEmpty();
-    }
-
-
-
 
     public List<Cliente> listarTodos() {
         return clientes;
+    }
+
+    public List<Cliente> filtrar(BigDecimal salary) {
+        return clientes.stream()
+                .filter(c -> c.getSalary().compareTo(salary) >= 1)
+                .toList();
     }
 
 }

@@ -86,16 +86,21 @@ class Main {
                 }
 
                 case "4" -> {
-                    System.out.print("Salário: ");
-                    BigDecimal salary = BigDecimal.ZERO;
+                    System.out.print("Digite o salário que deseja filtrar: ");
+                    BigDecimal salary_filtered = BigDecimal.ZERO;
                     try {
-                        salary = sc.nextBigDecimal();
+                        salary_filtered = sc.nextBigDecimal();
                     } catch (InputMismatchException e) {
                         System.err.println("Salário inválido! Digite um número.");
                         sc.nextLine();
                     }
-                    
-                    controller.filtrarCLientes(salary);
+
+                    if (salary_filtered.compareTo(BigDecimal.ZERO) > 0){
+                        controller.filtrarCLientes(salary_filtered);
+                    } else{
+                        System.out.println("Não foi possivel filtrar tente novamente! Motivo:");
+                    }
+
                 }
 
                 case "5" -> {

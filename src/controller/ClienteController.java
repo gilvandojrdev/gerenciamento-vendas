@@ -48,10 +48,21 @@ public class ClienteController {
 
     }
 
-    public void filtrarCLientes(BigDecimal salary){
+    public void filtrarCLientes(BigDecimal salary_filtered){
+        List<Cliente> filtrados = repository.filtrar(salary_filtered);
 
-        repository.filtrar(salary);
+        if (filtrados.isEmpty()) {
+            System.out.println("Não existe clientes com salário acima de " + salary_filtered);
+            return;
+        }
 
+        System.out.println("---CLIENTES FILTRADOS---");
+        for (Cliente c : filtrados) {
+            System.out.println("ID: " + c.getId());
+            System.out.println("Nome: " + c.getName());
+            System.out.println("Salário: " + c.getSalary());
+            System.out.println("-------------------------");
+        }
 
     }
 
