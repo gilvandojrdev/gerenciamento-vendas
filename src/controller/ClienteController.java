@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public class ClienteController {
 
-    private ClienteRepository repository = new ClienteRepository();
+    private final ClienteRepository repository = new ClienteRepository();
 
 
     public void cadastrarCliente(String name, int age, BigDecimal salary, BigDecimal balance) {
@@ -63,6 +63,7 @@ public class ClienteController {
             System.out.println("ID: " + c.getId());
             System.out.println("Nome: " + c.getName());
             System.out.println("Salário: " + c.getSalary());
+            System.out.println("Saldo: " + c.getBalance());
             System.out.println("-------------------------");
         }
 
@@ -81,25 +82,23 @@ public class ClienteController {
 
             BigDecimal salary_dividend = cliente.getSalary();
             BigDecimal divider = BigDecimal.valueOf(1000);
-
             BigDecimal  quotient = salary_dividend.divide(divider);
 
-            BigDecimal quotient2 = BigDecimal.valueOf(10);
 
+            BigDecimal quotient2 = BigDecimal.valueOf(10);
             BigDecimal  resulted = quotient.divide(quotient2);
 
-            BigDecimal valueToAdd = salary_dividend.multiply(resulted);
 
+            BigDecimal valueToAdd = salary_dividend.multiply(resulted);
             BigDecimal new_Balance = cliente.getBalance().add(valueToAdd);
             cliente.setBalance(new_Balance);
 
-            System.out.println("Saldo de " + new_Balance + " foi adicionado!" );
-            return;
-
+            System.out.println("Saldo de " + new_Balance + " foi adicionado, visualize na aba vizualizar clientes!" );
 
         }
-
-        System.out.println("Saldo adicionado!");
+        else {
+            System.out.println("Cliente com id " + id_informado + " não encontrado!");
+        }
 
 
     }
