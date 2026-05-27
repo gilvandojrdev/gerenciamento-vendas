@@ -5,6 +5,7 @@ Um sistema responsável por gerenciar as vendas de uma determinada loja, permiti
 - Nome
 - Idade
 - Salário
+- Saldo
 
 Além disso, o sistema também armazenará informações financeiras relacionadas à loja, como:
 
