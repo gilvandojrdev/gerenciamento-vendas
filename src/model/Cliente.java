@@ -8,17 +8,22 @@ public class Cliente {
 
     private String name;
     private Integer age;
-    private BigDecimal salary;
+    private BigDecimal salary = BigDecimal.ZERO;
+    private BigDecimal balance = BigDecimal.ZERO;
+
 
     public Cliente() {
 
     }
 
-    public Cliente(String name, Integer age, BigDecimal salary) {
+    public Cliente(String name, Integer age, BigDecimal salary, BigDecimal balance) {
         this.name = name;
         this.age = age;
         this.salary = salary;
+        this.balance = balance;
     }
+
+
 
     public int getId() {
         return id;
@@ -48,8 +53,16 @@ public class Cliente {
         return salary;
     }
 
+
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
 }

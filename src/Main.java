@@ -15,7 +15,7 @@ class Main {
         boolean running = true;
 
         while (running) {
-            System.out.print("\n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Visualizar clientes \n 4 - Filtrar clientes \n 5 - Sair");
+            System.out.print("\n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Visualizar clientes \n 4 - Filtrar clientes \n 5 - Adicionar saldo aos clientes \n  6 - Sair");
 
             System.out.println();
 
@@ -30,7 +30,7 @@ class Main {
                         try {
                             quantity = sc.nextInt();
                             break;
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException error) {
                             System.err.println("Valor inválido! Digite um número.");
                             sc.nextLine();
                         }
@@ -47,7 +47,7 @@ class Main {
                         int age;
                         try {
                             age = sc.nextInt();
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException error) {
                             System.err.println("Valor inválido! Digite um número.");
                             sc.nextLine();
                             i--;
@@ -58,14 +58,15 @@ class Main {
                         BigDecimal salary;
                         try {
                             salary = sc.nextBigDecimal();
-                        } catch (InputMismatchException e) {
+                        } catch (InputMismatchException error) {
                             System.err.println("Salário inválido! Digite um número.");
                             sc.nextLine();
                             i--;
                             continue;
                         }
 
-                        controller.cadastrarCliente(name, age, salary);
+                        BigDecimal balance = BigDecimal.ZERO;
+                        controller.cadastrarCliente(name, age, salary, balance);
                     }
 
                 }
@@ -75,7 +76,7 @@ class Main {
                     try {
                         int id_cliente = sc.nextInt();
                         controller.removerCliente(id_cliente);
-                    } catch (InputMismatchException e) {
+                    } catch (InputMismatchException error) {
                         System.out.println("Erro: digite apenas números!");
                         sc.nextLine();
                     }
@@ -90,7 +91,7 @@ class Main {
                     BigDecimal salary_filtered = BigDecimal.ZERO;
                     try {
                         salary_filtered = sc.nextBigDecimal();
-                    } catch (InputMismatchException e) {
+                    } catch (InputMismatchException error) {
                         System.err.println("Salário inválido! Digite um número.");
                         sc.nextLine();
                     }
@@ -104,6 +105,17 @@ class Main {
                 }
 
                 case "5" -> {
+                    System.out.println("Digite o ID do cliente que você deseja que o sistema vai setar o saldo: ");
+                    int id_cliente = 0;
+                    try {
+                        id_cliente = sc.nextInt();
+                    } catch (InputMismatchException error){
+                        System.out.println("Digite apenas números");
+                    }
+                    controller.adicionarSaldo(id_cliente);
+                }
+
+                case "6" -> {
                     System.out.println("Programa finalizado...");
                     running = false;
                 }

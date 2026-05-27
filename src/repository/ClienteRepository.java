@@ -5,6 +5,7 @@ import model.Cliente;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ClienteRepository {
     private List<Cliente> clientes = new ArrayList<>();
@@ -28,7 +29,7 @@ public class ClienteRepository {
     public List<Cliente> filtrar(BigDecimal salary) {
         return clientes.stream()
                 .filter(c -> c.getSalary().compareTo(salary) >= 1)
-                .toList();
+                .collect(Collectors.toList());
     }
 
 }
