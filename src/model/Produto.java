@@ -5,23 +5,23 @@ import java.math.BigDecimal;
 public class Produto {
     private int produto_id;
 
-
-    private String prod_name;
-    private String prod_description;
-    private String prod_characteristics;
-    private BigDecimal prod_price;
-    private Integer prod_stock;
+    private String prodName;
+    private String prodDescription;
+    private String prodCharacteristics;
+    private BigDecimal prodPrice;
+    private Integer prodStock;
     public Produto(){
 
     }
 
-    public Produto(String prod_name, String prod_description, String prod_characteristics, BigDecimal prod_price, Integer prod_stock){
-        this.prod_name = prod_name;
-        this.prod_description = prod_description;
-        this.prod_characteristics = prod_characteristics;
-        this.prod_price = prod_price;
-        this.prod_stock = prod_stock;
+    public Produto(String prodName, String prodDescription, String prodCharacteristics, BigDecimal prodPrice, Integer prodStock){
+        this.prodName = prodName;
+        this.prodDescription = prodDescription;
+        this.prodCharacteristics = prodCharacteristics;
+        this.prodPrice = prodPrice;
+        this.prodStock = prodStock;
     }
+
 
     public int getProduto_id() {
         return produto_id;
@@ -31,46 +31,43 @@ public class Produto {
         this.produto_id = produto_id;
     }
 
-    public String getProd_name() {
-        return prod_name;
+    public String getProdName() {
+        return prodName;
     }
 
-    public void setProd_name(String prod_name) {
-        this.prod_name = prod_name;
+    public void setProdName(String prodName) {
+        this.prodName = prodName;
     }
 
-    public String getProd_description() {
-        return prod_description;
+    public String getProdDescription() {
+        return prodDescription;
     }
 
-    public void setProd_description(String prod_description) {
-        this.prod_description = prod_description;
+    public void setProdDescription(String prodDescription) {
+        this.prodDescription = prodDescription;
     }
 
-    public String getProd_characteristics() {
-        return prod_characteristics;
+    public String getProdCharacteristics() {
+        return prodCharacteristics;
     }
 
-    public void setProd_characteristics(String prod_characteristics) {
-        this.prod_characteristics = prod_characteristics;
+    public void setProdCharacteristics(String prodCharacteristics) {
+        this.prodCharacteristics = prodCharacteristics;
     }
 
-    public BigDecimal getProd_price() {
-        return prod_price;
+    public BigDecimal getProdPrice() {
+        return prodPrice;
     }
 
-    public void setProd_price(BigDecimal prod_price) {
-        this.prod_price = prod_price;
+    public void setProdPrice(BigDecimal prodPrice) {
+        this.prodPrice = prodPrice;
     }
 
-    public Integer getProd_stock() {
-        return prod_stock;
+    public Integer getProdStock() {
+        return prodStock;
     }
 
-    public void setProd_stock(Integer prod_stock) {
-        this.prod_stock = prod_stock;
+    public void setProdStock(Integer prodStock) {
+        this.prodStock = prodStock;
     }
-
-
-
 }
