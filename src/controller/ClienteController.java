@@ -7,7 +7,12 @@ import java.util.Optional;
 
 public class ClienteController {
 
-    private final ClienteRepository repository = new ClienteRepository();
+
+    private final ClienteRepository repository;
+
+    public ClienteController(ClienteRepository repository) {
+        this.repository = repository;
+    }
 
 
     public void cadastrarCliente(String name, int age, BigDecimal salary, BigDecimal balance) {

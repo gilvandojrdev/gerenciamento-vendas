@@ -1,6 +1,8 @@
 // POO
 import controller.ClienteController;
 import controller.LojaController;
+import repository.ClienteRepository;
+import repository.MemoryClienteRepository;
 
 // Bibliotecas
 import java.util.InputMismatchException;
@@ -12,7 +14,10 @@ class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
-        ClienteController controllerC = new ClienteController();
+
+        ClienteRepository repository = new MemoryClienteRepository();
+
+        ClienteController controllerC = new ClienteController(repository);
         LojaController controllerL = new LojaController();
 
         System.out.println("Boas-Vindas ao Gerenciamento de Vendas");
