@@ -19,7 +19,7 @@ public class MemoryClienteRepository implements ClienteRepository {
 
     @Override
     public boolean remover(int id) {
-        return clientes.removeIf(f -> f.getId() == id);
+        return clientes.removeIf(c -> c.getId() == id);
     }
 
     @Override
