@@ -29,7 +29,7 @@ public class ClienteController {
         if (remocao) {
             System.out.println("Cliente ID " + id_cliente + " removido.");
         } else {
-            System.out.println("Error: ID " + id_cliente + " não encontrado");
+            System.out.println("Error: ID " + id_cliente + " não encontrado.");
         }
 
     }
