@@ -11,6 +11,7 @@ public class CustomerController {
 
     private final CustomerRepository repository;
 
+
     public CustomerController(CustomerRepository repository) {
         this.repository = repository;
     }
@@ -75,38 +76,28 @@ public class CustomerController {
 
     }
 
-    public void addBalance(int id_informado){
+    public void addBalance(int id_provided){
+
+        BigDecimal salaryMin = BigDecimal.valueOf(1620);
 
         List<Customer> customers = repository.view();
 
         Optional<Customer> clienteOptional = customers.stream()
-                .filter(customer -> customer.getId() == id_informado)
+                .filter(customer -> customer.getId() == id_provided)
                 .findFirst();
 
         if(clienteOptional.isPresent()) {
             Customer customer = clienteOptional.get();
-
-            BigDecimal salary_dividend = customer.getSalary();
-            BigDecimal divider = BigDecimal.valueOf(1000);
-            BigDecimal  quotient = salary_dividend.divide(divider);
-
-
-            BigDecimal quotient2 = BigDecimal.valueOf(10);
-            BigDecimal  resulted = quotient.divide(quotient2);
-
-
-            BigDecimal valueToAdd = salary_dividend.multiply(resulted);
-            BigDecimal new_Balance = customer.getBalance().add(valueToAdd);
-            customer.setBalance(new_Balance);
-
-            System.out.println("Saldo de " + new_Balance + " foi adicionado, visualize na aba vizualizar clientes!" );
-
+            if (customer.getSalary().compareTo(salaryMin) < 0) {
+                System.out.println("O cliente precisa ter o salário mínimo de: " + salaryMin);
+            } else {
+                BigDecimal newBalance = customer.getSalary().divide(BigDecimal.TWO);
+                customer.setBalance(newBalance);
+                System.out.println("Saldo aplicado de:" + customer.getBalance());
+            }
         }
         else {
-            System.out.println("Cliente com id " + id_informado + " não encontrado!");
+            System.out.println("Cliente com id " + id_provided+ " não encontrado!");
         }
-
-
     }
-
 }
