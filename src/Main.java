@@ -1,8 +1,8 @@
 // POO
-import controller.ClienteController;
-import controller.LojaController;
-import repository.ClienteRepository;
-import repository.MemoryClienteRepository;
+import controller.CustomerController;
+import controller.StoreController;
+import repository.CustomerRepository;
+import repository.MemoryCustomerRepository;
 
 // Bibliotecas
 import java.util.InputMismatchException;
@@ -15,10 +15,10 @@ class Main {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
 
-        ClienteRepository repository = new MemoryClienteRepository();
+        CustomerRepository repository = new MemoryCustomerRepository();
 
-        ClienteController controllerC = new ClienteController(repository);
-        LojaController controllerL = new LojaController();
+        CustomerController controllerC = new CustomerController(repository);
+        StoreController controllerL = new StoreController();
 
         System.out.println("Boas-Vindas ao Gerenciamento de Vendas");
         System.out.println();
@@ -30,7 +30,7 @@ class Main {
         System.out.print("Senha: ");
         String password = sc.nextLine();
 
-        boolean login = controllerL.loginLoja(user, password);
+        boolean login = controllerL.login(user, password);
 
         if (login){
             boolean running = true;
@@ -87,7 +87,7 @@ class Main {
                             }
 
                             BigDecimal balance = BigDecimal.ZERO;
-                            controllerC.cadastrarCliente(name, age, salary, balance);
+                            controllerC.registerCustomer(name, age, salary, balance);
                         }
 
                     }
@@ -96,7 +96,7 @@ class Main {
                         System.out.print("Digite o ID do cliente: ");
                         try {
                             int id_cliente = sc.nextInt();
-                            controllerC.removerCliente(id_cliente);
+                            controllerC.removeCustomer(id_cliente);
                         } catch (InputMismatchException error) {
                             System.out.println("Erro: digite apenas números!");
                             sc.nextLine();
@@ -104,7 +104,7 @@ class Main {
                     }
 
                     case "3" -> {
-                        controllerC.listarClientes();
+                        controllerC.viewCustomer();
                     }
 
                     case "4" -> {
@@ -118,7 +118,7 @@ class Main {
                         }
 
                         if (salary_filtered.compareTo(BigDecimal.ZERO) > 0){
-                            controllerC.filtrarCLientes(salary_filtered);
+                            controllerC.filterCustomer(salary_filtered);
                         } else{
                             System.out.println("Não foi possivel filtrar tente novamente! Motivo:");
                         }
@@ -133,7 +133,7 @@ class Main {
                         } catch (InputMismatchException error){
                             System.out.println("Digite apenas números");
                         }
-                        controllerC.adicionarSaldo(id_cliente);
+                        controllerC.addBalance(id_cliente);
                     }
 
                     case "6" -> {

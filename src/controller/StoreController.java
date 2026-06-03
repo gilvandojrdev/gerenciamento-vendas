@@ -2,9 +2,9 @@ package controller;
 
 import java.util.Objects;
 
-public class LojaController {
+public class StoreController {
 
-    public boolean loginLoja(String user, String password){
+    public boolean login(String user, String password){
         if(Objects.equals(user, "admin") && Objects.equals(password, "admin")){
             return true;
         }

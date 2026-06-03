@@ -2,7 +2,7 @@ package model;
 
 import java.math.BigDecimal;
 
-public class Cliente {
+public class Customer {
     private int id;
 
 
@@ -12,11 +12,11 @@ public class Cliente {
     private BigDecimal balance = BigDecimal.ZERO;
 
 
-    public Cliente() {
+    public Customer() {
 
     }
 
-    public Cliente(String name, Integer age, BigDecimal salary, BigDecimal balance) {
+    public Customer(String name, Integer age, BigDecimal salary, BigDecimal balance) {
         this.name = name;
         this.age = age;
         this.salary = salary;

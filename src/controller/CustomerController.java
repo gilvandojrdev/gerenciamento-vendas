@@ -1,30 +1,30 @@
 package controller;
-import model.Cliente;
-import repository.ClienteRepository;
+import model.Customer;
+import repository.CustomerRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-public class ClienteController {
+public class CustomerController {
 
 
-    private final ClienteRepository repository;
+    private final CustomerRepository repository;
 
-    public ClienteController(ClienteRepository repository) {
+    public CustomerController(CustomerRepository repository) {
         this.repository = repository;
     }
 
 
-    public void cadastrarCliente(String name, int age, BigDecimal salary, BigDecimal balance) {
-        Cliente cliente = new Cliente(name, age, salary, balance);
-        repository.salvar(cliente);
+    public void registerCustomer(String name, int age, BigDecimal salary, BigDecimal balance) {
+        Customer customer = new Customer(name, age, salary, balance);
+        repository.save(customer);
         System.out.println("Cliente cadastrado com sucesso.");
     }
 
 
-    public void removerCliente(int id_cliente) {
-        boolean remocao = repository.remover(id_cliente);
+    public void removeCustomer(int id_cliente) {
+        boolean remocao = repository.remove(id_cliente);
 
         if (remocao) {
             System.out.println("Cliente ID " + id_cliente + " removido.");
@@ -34,10 +34,10 @@ public class ClienteController {
 
     }
 
-    public void listarClientes() {
-        List<Cliente> clientes = repository.listarTodos();
+    public void viewCustomer() {
+        List<Customer> customers = repository.view();
 
-        if (clientes.isEmpty()) {
+        if (customers.isEmpty()) {
             System.out.println("Nenhum cliente cadastrado.");
             return;
         }
@@ -45,7 +45,7 @@ public class ClienteController {
         System.out.println("Clientes cadastrados");
         System.out.println();
 
-        for (Cliente c : clientes) {
+        for (Customer c : customers) {
             System.out.println("ID:" + c.getId());
             System.out.println("Nome: " + c.getName());
             System.out.println("Idade: " + c.getAge());
@@ -56,8 +56,8 @@ public class ClienteController {
 
     }
 
-    public void filtrarCLientes(BigDecimal salary_filtered){
-        List<Cliente> filtrados = repository.filtrar(salary_filtered);
+    public void filterCustomer(BigDecimal salary_filtered){
+        List<Customer> filtrados = repository.filter(salary_filtered);
 
         if (filtrados.isEmpty()) {
             System.out.println("Não existe clientes com salário acima de " + salary_filtered);
@@ -65,7 +65,7 @@ public class ClienteController {
         }
 
         System.out.println("---CLIENTES FILTRADOS---");
-        for (Cliente c : filtrados) {
+        for (Customer c : filtrados) {
             System.out.println("ID: " + c.getId());
             System.out.println("Nome: " + c.getName());
             System.out.println("Salário: " + c.getSalary());
@@ -75,18 +75,18 @@ public class ClienteController {
 
     }
 
-    public void adicionarSaldo(int id_informado){
+    public void addBalance(int id_informado){
 
-        List<Cliente> clientes = repository.listarTodos();
+        List<Customer> customers = repository.view();
 
-        Optional<Cliente> clienteOptional = clientes.stream()
-                .filter(cliente -> cliente.getId() == id_informado)
+        Optional<Customer> clienteOptional = customers.stream()
+                .filter(customer -> customer.getId() == id_informado)
                 .findFirst();
 
         if(clienteOptional.isPresent()) {
-            Cliente cliente = clienteOptional.get();
+            Customer customer = clienteOptional.get();
 
-            BigDecimal salary_dividend = cliente.getSalary();
+            BigDecimal salary_dividend = customer.getSalary();
             BigDecimal divider = BigDecimal.valueOf(1000);
             BigDecimal  quotient = salary_dividend.divide(divider);
 
@@ -96,8 +96,8 @@ public class ClienteController {
 
 
             BigDecimal valueToAdd = salary_dividend.multiply(resulted);
-            BigDecimal new_Balance = cliente.getBalance().add(valueToAdd);
-            cliente.setBalance(new_Balance);
+            BigDecimal new_Balance = customer.getBalance().add(valueToAdd);
+            customer.setBalance(new_Balance);
 
             System.out.println("Saldo de " + new_Balance + " foi adicionado, visualize na aba vizualizar clientes!" );
 
