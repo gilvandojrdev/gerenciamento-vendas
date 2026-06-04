@@ -71,7 +71,7 @@ class Main {
                             try {
                                 age = sc.nextInt();
                             } catch (InputMismatchException error) {
-                                System.err.println("Valor inválido! Digite um número.");
+                                System.err.println("Valor inválido! Digite apenas números.");
                                 sc.nextLine();
                                 i--;
                                 continue;
@@ -82,7 +82,7 @@ class Main {
                             try {
                                 salary = sc.nextBigDecimal();
                             } catch (InputMismatchException error) {
-                                System.err.println("Salário inválido! Digite um número.");
+                                System.err.println("Salário inválido! Digite apenas números.");
                                 sc.nextLine();
                                 i--;
                                 continue;
@@ -103,7 +103,7 @@ class Main {
                             System.out.println("Cliente removido com sucesso!");
 
                         } catch (InputMismatchException error) {
-                            System.out.println("Erro: digite apenas números!");
+                            System.out.println("Erro do sistema: Digite apenas números!");
                             sc.nextLine();
                         } catch (CustomerNotFound error) {
                             System.err.println("Aviso: " + error.getMessage());
@@ -116,20 +116,16 @@ class Main {
 
                     case "4" -> {
                         System.out.print("Digite o salário que deseja filtrar: ");
-                        BigDecimal salary_filtered = BigDecimal.ZERO;
+                        BigDecimal salary_filtered;
                         try {
                             salary_filtered = sc.nextBigDecimal();
-                        } catch (InputMismatchException error) {
-                            System.err.println("Salário inválido! Digite um número.");
-                            sc.nextLine();
-                        }
-
-                        if (salary_filtered.compareTo(BigDecimal.ZERO) > 0){
                             controllerC.filterCustomer(salary_filtered);
-                        } else{
-                            System.out.println("Não foi possivel filtrar tente novamente! Motivo:");
+                        } catch (InputMismatchException error) {
+                            System.err.println("Erro do sistema: Digite apenas números.");
+                            sc.nextLine();
+                        } catch (CustomerNotFound error){
+                            System.err.println("Erro do sistema:" + error.getMessage());
                         }
-
                     }
 
                     case "5" -> {
@@ -141,7 +137,7 @@ class Main {
                             System.out.println("Operação realizada com sucesso!");
 
                         } catch (InputMismatchException error) {
-                            System.err.println("Erro: Digite apenas números!");
+                            System.err.println("Erro do Sistema: Digite apenas números!");
                             sc.nextLine();
                         } catch (InsufficientBalance e) {
                             System.err.println("Não foi possível aplicar o saldo: " + e.getMessage());
