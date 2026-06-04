@@ -54,8 +54,9 @@ class Main {
                                 quantity = sc.nextInt();
                                 break;
                             } catch (InputMismatchException error) {
-                                System.err.println("Valor inválido! Digite um número.");
+                                System.err.println("Erro do sistema: Digite apenas números.");
                                 sc.nextLine();
+                                break;
                             }
                         }
 
