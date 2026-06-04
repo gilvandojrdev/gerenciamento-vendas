@@ -38,11 +38,13 @@ class Main {
             boolean running = true;
 
             while (running) {
-                System.out.print("Sistema de Gerenciamento de vendas \n 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Visualizar clientes \n 4 - Filtrar clientes \n 5 - Adicionar saldo aos clientes \n 6 - Sair");
-
                 System.out.println();
+                System.out.println("Sistema de Gerenciamento de vendas");
+                System.out.println();
+                System.out.println(" 1 - Adicionar cliente \n 2 - Remover cliente \n 3 - Visualizar clientes \n 4 - Filtrar clientes \n 5 - Adicionar saldo aos clientes \n 6 - Sair");
 
-                String option = sc.next();
+
+                String option = sc.nextLine();
 
                 switch (option) {
                     case "1" -> {
@@ -104,10 +106,11 @@ class Main {
                             System.out.println("Cliente removido com sucesso!");
 
                         } catch (InputMismatchException error) {
-                            System.out.println("Erro do sistema: Digite apenas números!");
+                            System.err.println("Erro do sistema: Digite apenas números!");
                             sc.nextLine();
                         } catch (CustomerNotFound error) {
                             System.err.println("Aviso: " + error.getMessage());
+                            sc.nextLine();
                         }
                     }
 
@@ -125,7 +128,8 @@ class Main {
                             System.err.println("Erro do sistema: Digite apenas números.");
                             sc.nextLine();
                         } catch (CustomerNotFound error){
-                            System.err.println("Erro do sistema:" + error.getMessage());
+                            System.err.println("Erro do sistema :" + error.getMessage());
+                            sc.nextLine();
                         }
                     }
 
@@ -133,17 +137,18 @@ class Main {
                         System.out.println("Digite o ID do cliente que você deseja setar o saldo: ");
                         try {
                             int id_cliente = sc.nextInt();
-
                             controllerC.addBalance(id_cliente);
                             System.out.println("Operação realizada com sucesso!");
 
                         } catch (InputMismatchException error) {
-                            System.err.println("Erro do Sistema: Digite apenas números!");
+                            System.err.println("Erro do sistema: Digite apenas números!");
                             sc.nextLine();
-                        } catch (InsufficientBalance e) {
-                            System.err.println("Não foi possível aplicar o saldo: " + e.getMessage());
-                        } catch (CustomerNotFound e) {
-                            System.err.println("Erro do Sistema: " + e.getMessage());
+                        } catch (InsufficientBalance error) {
+                            System.err.println("Não foi possível aplicar o saldo: " + error.getMessage());
+                            sc.nextLine();
+                        } catch (CustomerNotFound error) {
+                            System.err.println("Erro do sistema: " + error.getMessage());
+                            sc.nextLine();
                         }
                     }
 
