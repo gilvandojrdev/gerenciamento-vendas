@@ -1,4 +1,6 @@
 package controller;
+import exceptions.CustomerNotFound;
+import exceptions.InsufficientBalance;
 import model.Customer;
 import repository.CustomerRepository;
 
@@ -24,13 +26,11 @@ public class CustomerController {
     }
 
 
-    public void removeCustomer(int id_cliente) {
-        boolean remocao = repository.remove(id_cliente);
+    public void removeCustomer(int customer_id) throws CustomerNotFound {
+        boolean exclusion = repository.remove(customer_id);
 
-        if (remocao) {
-            System.out.println("Cliente ID " + id_cliente + " removido.");
-        } else {
-            System.out.println("Error: ID " + id_cliente + " não encontrado.");
+        if (!exclusion) {
+            throw new CustomerNotFound("Cliente com ID " + customer_id + " não encontrado.");
         }
 
     }
@@ -76,7 +76,7 @@ public class CustomerController {
 
     }
 
-    public void addBalance(int id_provided){
+    public void addBalance(int id_provided) throws InsufficientBalance, CustomerNotFound {
 
         BigDecimal salaryMin = BigDecimal.valueOf(1620);
 
@@ -86,18 +86,18 @@ public class CustomerController {
                 .filter(customer -> customer.getId() == id_provided)
                 .findFirst();
 
-        if(clienteOptional.isPresent()) {
-            Customer customer = clienteOptional.get();
-            if (customer.getSalary().compareTo(salaryMin) < 0) {
-                System.out.println("O cliente precisa ter o salário mínimo de: " + salaryMin);
-            } else {
-                BigDecimal newBalance = customer.getSalary().divide(BigDecimal.TWO);
-                customer.setBalance(newBalance);
-                System.out.println("Saldo aplicado de:" + customer.getBalance());
-            }
+        if (clienteOptional.isEmpty()) {
+            throw new CustomerNotFound("Cliente com ID " + id_provided + " não encontrado!");
         }
-        else {
-            System.out.println("Cliente com id " + id_provided+ " não encontrado!");
+
+        Customer customer = clienteOptional.get();
+
+        if (customer.getSalary().compareTo(salaryMin) < 0) {
+            throw new InsufficientBalance("Salário atual de R$ " + customer.getSalary() + " é inferior ao mínimo permitido.");
         }
+
+        BigDecimal newBalance = customer.getSalary().divide(BigDecimal.TWO);
+        customer.setBalance(newBalance);
+
     }
 }
