@@ -57,12 +57,11 @@ public class CustomerController {
 
     }
 
-    public void filterCustomer(BigDecimal salary_filtered){
+    public void filterCustomer(BigDecimal salary_filtered) throws CustomerNotFound {
         List<Customer> filtrados = repository.filter(salary_filtered);
 
         if (filtrados.isEmpty()) {
-            System.out.println("Não existe clientes com salário acima de " + salary_filtered);
-            return;
+            throw new CustomerNotFound("Não existe clientes com salário acima de " + salary_filtered);
         }
 
         System.out.println("---CLIENTES FILTRADOS---");
