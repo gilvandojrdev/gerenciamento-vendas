@@ -1,6 +1,8 @@
 // POO
 import controller.CustomerController;
 import controller.StoreController;
+import exceptions.CustomerNotFound;
+import exceptions.InsufficientBalance;
 import repository.CustomerRepository;
 import repository.MemoryCustomerRepository;
 
@@ -11,7 +13,7 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InsufficientBalance {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
 
@@ -96,10 +98,15 @@ class Main {
                         System.out.print("Digite o ID do cliente: ");
                         try {
                             int id_cliente = sc.nextInt();
+
                             controllerC.removeCustomer(id_cliente);
+                            System.out.println("Cliente removido com sucesso!");
+
                         } catch (InputMismatchException error) {
                             System.out.println("Erro: digite apenas números!");
                             sc.nextLine();
+                        } catch (CustomerNotFound error) {
+                            System.err.println("Aviso: " + error.getMessage());
                         }
                     }
 
@@ -126,24 +133,23 @@ class Main {
                     }
 
                     case "5" -> {
-                        System.out.println("Digite o ID do cliente que você deseja que o sistema vai setar o saldo: ");
-                        int id_cliente = 0;
+                        System.out.println("Digite o ID do cliente que você deseja setar o saldo: ");
                         try {
-                            id_cliente = sc.nextInt();
-                        } catch (InputMismatchException error){
-                            System.out.println("Digite apenas números");
+                            int id_cliente = sc.nextInt();
+
+                            controllerC.addBalance(id_cliente);
+                            System.out.println("Operação realizada com sucesso!");
+
+                        } catch (InputMismatchException error) {
+                            System.err.println("Erro: Digite apenas números!");
+                            sc.nextLine();
+                        } catch (InsufficientBalance e) {
+                            System.err.println("Não foi possível aplicar o saldo: " + e.getMessage());
+                        } catch (CustomerNotFound e) {
+                            System.err.println("Erro do Sistema: " + e.getMessage());
                         }
-                        controllerC.addBalance(id_cliente);
                     }
 
-                    case "6" -> {
-                        System.out.println("Programa finalizado...");
-                        running = false;
-                    }
-
-                    default -> {
-                        System.err.println("Opção inválida tente novamente");
-                    }
                 }
             }
         } else {
