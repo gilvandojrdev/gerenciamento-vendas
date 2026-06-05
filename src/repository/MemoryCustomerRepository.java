@@ -1,5 +1,6 @@
 package repository;
 
+import interfaces.CustomerRepository;
 import model.Customer;
 
 import java.math.BigDecimal;
