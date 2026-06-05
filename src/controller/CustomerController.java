@@ -2,7 +2,7 @@ package controller;
 import exceptions.CustomerNotFound;
 import exceptions.InsufficientBalance;
 import model.Customer;
-import repository.CustomerRepository;
+import interfaces.CustomerRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
