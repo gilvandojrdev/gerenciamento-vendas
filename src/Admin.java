@@ -13,7 +13,7 @@ import repository.MemoryProductRepository;
 // Exeções
 import exceptions.CategoryNotFound;
 import exceptions.CustomerNotFound;
-import exceptions.InsufficientBalance;
+import exceptions.InsufficientSalary;
 import exceptions.ProductNotFound;
 
 // Bibliotecas
@@ -156,7 +156,7 @@ class Main {
                                 } catch (InputMismatchException error) {
                                     System.err.println("Erro do sistema: Digite apenas números!");
                                     sc.nextLine();
-                                } catch (InsufficientBalance error) {
+                                } catch (InsufficientSalary error) {
                                     System.err.println("Não foi possível aplicar o saldo: " + error.getMessage());
                                 } catch (CustomerNotFound error) {
                                     System.err.println("Erro do sistema: " + error.getMessage());
@@ -254,8 +254,8 @@ class Main {
                             }
                             case "4" -> {
                                 System.out.println("Digite a categoria do produto: ");
+                                String category = sc.nextLine();
                                 try {
-                                    String category = sc.nextLine();
                                     controllerL.filterProducts(category);
                                 } catch (CategoryNotFound erro){
                                     System.err.println("Aviso: " + erro.getMessage());
