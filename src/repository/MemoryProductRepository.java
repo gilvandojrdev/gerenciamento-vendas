@@ -5,6 +5,7 @@ import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MemoryProductRepository implements ProductRepository {
 
@@ -20,16 +21,17 @@ public class MemoryProductRepository implements ProductRepository {
 
     @Override
     public boolean remove(int id) {
-        return false;
+        return products.removeIf(p -> p.getProdId() == id);
     }
 
     @Override
     public List<Product> view() {
-        return List.of();
+        return new ArrayList<>(products);
     }
 
     @Override
     public List<Product> filter(String category) {
-        return List.of();
+        return products.stream().filter(p -> Objects.equals(p.getProdCategory(), category)).toList();
     }
+
 }
