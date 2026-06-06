@@ -1,6 +1,7 @@
 package controller;
+
 import exceptions.CustomerNotFound;
-import exceptions.InsufficientBalance;
+import exceptions.InsufficientSalary;
 import model.Customer;
 import interfaces.CustomerRepository;
 
@@ -74,7 +75,7 @@ public class CustomerController {
 
     }
 
-    public void addBalance(int id_provided) throws InsufficientBalance, CustomerNotFound {
+    public void addBalance(int id_provided) throws InsufficientSalary, CustomerNotFound {
 
         BigDecimal salaryMin = BigDecimal.valueOf(1620);
 
@@ -91,7 +92,7 @@ public class CustomerController {
         Customer customer = clienteOptional.get();
 
         if (customer.getSalary().compareTo(salaryMin) < 0) {
-            throw new InsufficientBalance("Salário atual de R$ " + customer.getSalary() + " é inferior ao mínimo permitido.");
+            throw new InsufficientSalary("Salário atual de R$ " + customer.getSalary() + " é inferior ao mínimo permitido.");
         }
 
         BigDecimal newBalance = customer.getSalary().divide(BigDecimal.TWO);
