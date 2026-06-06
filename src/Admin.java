@@ -1,12 +1,20 @@
 // POO
 import controller.CustomerController;
 import controller.StoreController;
-import exceptions.CustomerNotFound;
-import exceptions.InsufficientBalance;
+
+// Interfaces
 import interfaces.CustomerRepository;
 import interfaces.ProductRepository;
+
+// Inversões
 import repository.MemoryCustomerRepository;
 import repository.MemoryProductRepository;
+
+// Exeções
+import exceptions.CategoryNotFound;
+import exceptions.CustomerNotFound;
+import exceptions.InsufficientBalance;
+import exceptions.ProductNotFound;
 
 // Bibliotecas
 import java.util.InputMismatchException;
@@ -15,7 +23,7 @@ import java.util.Scanner;
 import java.math.BigDecimal;
 
 class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         Scanner sc = new Scanner(System.in);
         Locale.setDefault(Locale.US);
 
@@ -37,7 +45,7 @@ class Main {
 
         boolean login = controllerL.login(user, password);
 
-        if (login){
+        if (login) {
             boolean running = true;
 
             while (running) {
@@ -56,25 +64,22 @@ class Main {
 
                         switch (option2) {
                             case "1" -> {
-
-                                System.out.println("Digite a quantidade de clientes");
-
+                                System.out.print("Digite a quantidade de clientes: ");
                                 int quantity = 0;
 
                                 while (true) {
                                     try {
                                         quantity = sc.nextInt();
+                                        sc.nextLine();
                                         break;
                                     } catch (InputMismatchException error) {
                                         System.err.println("Erro do sistema: Digite apenas números.");
                                         sc.nextLine();
-                                        break;
                                     }
                                 }
 
                                 for (int i = 0; i < quantity; i++) {
                                     System.out.println("Cadastro do cliente #" + (i + 1));
-                                    sc.nextLine();
 
                                     System.out.print("Nome: ");
                                     String name = sc.nextLine();
@@ -83,6 +88,7 @@ class Main {
                                     int age;
                                     try {
                                         age = sc.nextInt();
+                                        sc.nextLine();
                                     } catch (InputMismatchException error) {
                                         System.err.println("Valor inválido! Digite apenas números.");
                                         sc.nextLine();
@@ -94,6 +100,7 @@ class Main {
                                     BigDecimal salary;
                                     try {
                                         salary = sc.nextBigDecimal();
+                                        sc.nextLine();
                                     } catch (InputMismatchException error) {
                                         System.err.println("Salário inválido! Digite apenas números.");
                                         sc.nextLine();
@@ -104,12 +111,12 @@ class Main {
                                     BigDecimal balance = BigDecimal.ZERO;
                                     controllerC.registerCustomer(name, age, salary, balance);
                                 }
-
                             }
                             case "2" -> {
                                 System.out.print("Digite o ID do cliente: ");
                                 try {
                                     int id_cliente = sc.nextInt();
+                                    sc.nextLine();
 
                                     controllerC.removeCustomer(id_cliente);
                                     System.out.println("Cliente removido com sucesso!");
@@ -119,32 +126,30 @@ class Main {
                                     sc.nextLine();
                                 } catch (CustomerNotFound error) {
                                     System.err.println("Aviso: " + error.getMessage());
-                                    sc.nextLine();
                                 }
                             }
                             case "3" -> {
                                 controllerC.viewCustomer();
                             }
-
                             case "4" -> {
                                 System.out.print("Digite o salário que deseja filtrar: ");
                                 BigDecimal salary_filtered;
                                 try {
                                     salary_filtered = sc.nextBigDecimal();
+                                    sc.nextLine();
                                     controllerC.filterCustomer(salary_filtered);
                                 } catch (InputMismatchException error) {
                                     System.err.println("Erro do sistema: Digite apenas números.");
                                     sc.nextLine();
-                                } catch (CustomerNotFound error){
+                                } catch (CustomerNotFound error) {
                                     System.err.println("Erro do sistema :" + error.getMessage());
-                                    sc.nextLine();
                                 }
                             }
-
                             case "5" -> {
                                 System.out.println("Digite o ID do cliente que você deseja setar o saldo: ");
                                 try {
                                     int id_cliente = sc.nextInt();
+                                    sc.nextLine();
                                     controllerC.addBalance(id_cliente);
                                     System.out.println("Operação realizada com sucesso!");
 
@@ -153,17 +158,15 @@ class Main {
                                     sc.nextLine();
                                 } catch (InsufficientBalance error) {
                                     System.err.println("Não foi possível aplicar o saldo: " + error.getMessage());
-                                    sc.nextLine();
                                 } catch (CustomerNotFound error) {
                                     System.err.println("Erro do sistema: " + error.getMessage());
-                                    sc.nextLine();
                                 }
                             }
                             case "6" -> {
-                                System.out.println("Saindo  do programa");
+                                System.out.println("Saindo do programa");
                                 running = false;
                             }
-                            default -> System.err.println("Opção inválida! Digite '1' ou '2'.");
+                            default -> System.err.println("Opção inválida! Digite de '1' a '6'.");
                         }
                     }
                     case "2" -> {
@@ -173,24 +176,26 @@ class Main {
 
                         switch (option3) {
                             case "1" -> {
-
-                                System.out.println("Digite a quantidade de produtos");
+                                System.out.print("Digite a quantidade de produtos: ");
                                 int quantity = 0;
 
                                 while (true) {
                                     try {
                                         quantity = sc.nextInt();
+                                        sc.nextLine();
                                         break;
                                     } catch (InputMismatchException error) {
                                         System.err.println("Erro do sistema: Digite apenas números.");
                                         sc.nextLine();
-                                        break;
                                     }
                                 }
 
                                 for (int i = 0; i < quantity; i++) {
                                     System.out.println("Cadastro do produto #" + (i + 1));
-                                    sc.nextLine();
+
+
+                                    System.out.print("Categoria do produto: ");
+                                    String prodCategory = sc.nextLine();
 
                                     System.out.print("Nome do produto: ");
                                     String prodName = sc.nextLine();
@@ -198,13 +203,15 @@ class Main {
                                     System.out.print("Descrição do produto: ");
                                     String prodDescription = sc.nextLine();
 
-                                    System.out.println("Caracteristica do produto: ");
+                                    System.out.print("Caracteristica do produto: ");
                                     String prodCharacteristics = sc.nextLine();
 
                                     System.out.print("Preço do produto: ");
-                                    BigDecimal prodPrice = sc.nextBigDecimal();
+                                    BigDecimal prodPrice;
+
                                     try {
                                         prodPrice = sc.nextBigDecimal();
+                                        sc.nextLine();
                                     } catch (InputMismatchException error) {
                                         System.err.println("Preço inválido! Digite apenas números.");
                                         sc.nextLine();
@@ -212,22 +219,53 @@ class Main {
                                         continue;
                                     }
 
-                                    System.out.println("Estoque do produto: ");
+                                    System.out.print("Estoque do produto: ");
                                     int prodStock = 0;
 
                                     try {
                                         prodStock = sc.nextInt();
-                                    } catch (InputMismatchException error){
-                                        System.out.println("Estoque inválido! Digite apenas números.");
+                                        sc.nextLine();
+                                    } catch (InputMismatchException error) {
+                                        System.err.println("Estoque inválido! Digite apenas números.");
+                                        sc.nextLine();
+                                        i--;
+                                        continue;
                                     }
 
-                                    controllerL.registerProduct(prodName, prodDescription, prodCharacteristics, prodPrice, prodStock);
+                                    controllerL.registerProduct(prodCategory, prodName, prodDescription, prodCharacteristics, prodPrice, prodStock);
                                 }
-
                             }
+                            case "2" -> {
+                                System.out.println("Digite o ID do produto que deseja remover:");
+                                try {
+                                    int productId = sc.nextInt();
+                                    sc.nextLine();
+                                    controllerL.removerProduct(productId);
+                                    System.out.println("Produto removido com sucesso!");
+                                } catch (InputMismatchException error) {
+                                    System.err.println("Erro do sistema: Digite apenas números!");
+                                    sc.nextLine();
+                                } catch (ProductNotFound error) {
+                                    System.err.println("Aviso: " + error.getMessage());
+                                }
+                            }
+                            case "3" -> {
+                                controllerL.viewProducts();
+                            }
+                            case "4" -> {
+                                System.out.println("Digite a categoria do produto: ");
+                                try {
+                                    String category = sc.nextLine();
+                                    controllerL.filterProducts(category);
+                                } catch (CategoryNotFound erro){
+                                    System.err.println("Aviso: " + erro.getMessage());
+                                }
+                            }
+                            case "5" -> {
+                                System.out.println("Voltando ao menu principal...");
+                            }
+                            default -> System.err.println("Opção inválida!");
                         }
-
-
                     }
                     default -> System.err.println("Opção inválida! Digite '1' ou '2'.");
                 }
