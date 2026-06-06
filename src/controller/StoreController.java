@@ -19,14 +19,11 @@ public class StoreController {
         this.repository = repository;
     }
 
-    public boolean login(String user, String password){
-        if(Objects.equals(user, "admin") && Objects.equals(password, "admin")){
-            return true;
-        }
-        return false;
+    public boolean login(String user, String password) {
+        return Objects.equals(user, "admin") && Objects.equals(password, "admin");
     }
 
-    public void registerProduct(String prodCategory, String prodName, String prodDescription, String prodCharacteristics, BigDecimal prodPrice, int prodStock){
+    public void registerProduct(String prodCategory, String prodName, String prodDescription, String prodCharacteristics, BigDecimal prodPrice, int prodStock) {
         Product product = new Product(prodCategory, prodName, prodDescription, prodCharacteristics, prodPrice, prodStock);
         repository.save(product);
     }
@@ -34,23 +31,21 @@ public class StoreController {
     public void removerProduct(int productId) throws ProductNotFound {
         boolean exclusion = repository.remove(productId);
 
-        if(!exclusion){
+        if (!exclusion) {
             throw new ProductNotFound("Produto de ID: " + productId + " não foi encontrado.");
         }
 
-        System.out.println("Usuário do ID:" + productId + " removido com sucesso");
+        System.out.println("Produto do ID:" + productId + " removido com sucesso");
 
     }
 
-    public void viewProducts(){
+    public void viewProducts() {
         List<Product> products = repository.view();
-
-        if(products.isEmpty()){
+        if (products.isEmpty()) {
             System.out.println("Não existe produtos");
+            return;
         }
-
-        System.out.println("Clientes cadastrados: \n");
-
+        System.out.println("Produtos cadastrados: \n");
         for (Product p : products) {
             System.out.println("ID: " + p.getProdId());
             System.out.println("Catégoria: " + p.getProdCategory());
@@ -65,13 +60,11 @@ public class StoreController {
     public void filterProducts(String category) throws CategoryNotFound {
         List<Product> filteredProducts = repository.filter(category);
 
-        if(filteredProducts.isEmpty()){
-           throw new CategoryNotFound("Não existe produtos com a categória: " + category);
+        if (filteredProducts.isEmpty()) {
+            throw new CategoryNotFound("Não existe produtos com a categória: " + category);
         }
-
         System.out.println("Produtos com a cateǵoria" + category + " :");
-
-        for (Product p : filteredProducts){
+        for (Product p : filteredProducts) {
             System.out.println("ID: " + p.getProdId());
             System.out.println("Catégoria: " + p.getProdCategory());
             System.out.println("Nome: " + p.getProdName());
