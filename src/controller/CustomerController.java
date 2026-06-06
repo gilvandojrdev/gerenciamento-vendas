@@ -28,11 +28,10 @@ public class CustomerController {
 
     public void removeCustomer(int customer_id) throws CustomerNotFound {
         boolean exclusion = repository.remove(customer_id);
-
         if (!exclusion) {
             throw new CustomerNotFound("Cliente com ID " + customer_id + " não encontrado.");
         }
-
+        System.out.println("Cliente removido com sucesso!");
     }
 
     public void viewCustomer() {
