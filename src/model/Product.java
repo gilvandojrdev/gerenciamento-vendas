@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 public class Product {
     private int prodId;
 
+    private String prodCategory;
     private String prodName;
     private String prodDescription;
     private String prodCharacteristics;
@@ -15,13 +16,23 @@ public class Product {
 
     }
 
-    public Product(String prodName, String prodDescription, String prodCharacteristics, BigDecimal prodPrice, Integer prodStock){
+    public Product(String prodCategory, String prodName, String prodDescription, String prodCharacteristics, BigDecimal prodPrice, Integer prodStock){
+        this.prodCategory = prodCategory;
         this.prodName = prodName;
         this.prodDescription = prodDescription;
         this.prodCharacteristics = prodCharacteristics;
         this.prodPrice = prodPrice;
         this.prodStock = prodStock;
     }
+
+    public String getProdCategory() {
+        return prodCategory;
+    }
+
+    public void setProdCategory() {
+        this.prodCategory = prodCategory;
+    }
+
 
     public int getProdId() {
         return prodId;
